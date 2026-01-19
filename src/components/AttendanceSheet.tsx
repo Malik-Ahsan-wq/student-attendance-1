@@ -71,6 +71,8 @@ export default function AttendanceSheet() {
               <tr>
                 <th className="px-6 py-4">Roll No</th>
                 <th className="px-6 py-4">Student Name</th>
+                <th className="px-6 py-4">Class</th>
+                <th className="px-6 py-4">Father Name</th>
                 <th className="px-6 py-4 text-center">Status</th>
               </tr>
             </thead>
@@ -81,6 +83,8 @@ export default function AttendanceSheet() {
                   <tr key={student.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 font-medium text-gray-900">{student.rollNo}</td>
                     <td className="px-6 py-4 text-gray-700">{student.name}</td>
+                    <td className="px-6 py-4 text-gray-700">{student.className}</td>
+                    <td className="px-6 py-4 text-gray-700">{student.fatherName}</td>
                     <td className="px-6 py-4">
                       <div className="flex justify-center gap-2 sm:gap-4">
                         {(['Present', 'Absent', 'Late'] as const).map((s) => (

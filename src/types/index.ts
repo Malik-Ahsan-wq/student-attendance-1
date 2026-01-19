@@ -2,6 +2,8 @@ export interface Student {
   id: string;
   name: string;
   rollNo: string;
+  className: string;
+  fatherName: string;
 }
 
 export type AttendanceStatus = 'Present' | 'Absent' | 'Late';

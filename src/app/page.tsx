@@ -8,6 +8,29 @@ import AdminDashboard from '@/components/AdminDashboard';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState<'mark' | 'students' | 'admin'>('mark');
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [loginError, setLoginError] = useState('');
+
+  const ADMIN_PASSWORD = '112233abc';
+
+  const handleAdminClick = () => {
+    if (activeTab === 'admin') return;
+    setShowAdminLogin(true);
+    setLoginError('');
+    setPasswordInput('');
+  };
+
+  const handleLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === ADMIN_PASSWORD) {
+      setActiveTab('admin');
+      setShowAdminLogin(false);
+      setPasswordInput('');
+    } else {
+      setLoginError('Incorrect password');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 font-sans text-slate-800">
@@ -104,7 +127,7 @@ function AppContent() {
                 </div>
               </button>
               <button
-                onClick={() => setActiveTab('admin')}
+                onClick={handleAdminClick}
                 className={`py-3.5 text-xs cursor-pointer sm:text-sm font-semibold text-center transition-all duration-300 relative ${
                   activeTab === 'admin' 
                     ? 'bg-white text-indigo-600' 
@@ -132,6 +155,44 @@ function AppContent() {
           {activeTab === 'admin' && <AdminDashboard />}
         </div>
       </main>
+
+      {/* Admin Login Modal */}
+      {showAdminLogin && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 transform transition-all scale-100">
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Admin Access Required</h3>
+            <form onSubmit={handleLoginSubmit}>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Enter Password</label>
+                <input
+                  type="password"
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                  placeholder="Password"
+                  autoFocus
+                />
+                {loginError && <p className="text-red-500 text-sm mt-1">{loginError}</p>}
+              </div>
+              <div className="flex justify-end space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setShowAdminLogin(false)}
+                  className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-md"
+                >
+                  Access Report
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

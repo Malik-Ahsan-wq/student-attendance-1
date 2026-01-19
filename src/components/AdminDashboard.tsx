@@ -97,7 +97,8 @@ export default function AdminDashboard() {
                   <tr key={student.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-4 py-2 font-medium text-gray-900 sticky left-0 bg-white hover:bg-gray-50 z-10 border-r border-gray-200">
                       <div className="truncate">{student.name}</div>
-                      <div className="text-[10px] text-gray-400">{student.rollNo}</div>
+                      <div className="text-[10px] text-gray-400">{student.rollNo} • {student.className}</div>
+                      <div className="text-[10px] text-gray-400">S/O {student.fatherName}</div>
                     </td>
                     {daysArray.map(day => {
                       const status = monthData[day]?.[student.id];
